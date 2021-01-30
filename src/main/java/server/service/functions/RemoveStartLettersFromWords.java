@@ -3,12 +3,13 @@ package server.service.functions;
 import entity.TextElement;
 import entity.impl.Word;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.List;
 
 public class RemoveStartLettersFromWords {
 
-    public TextElement getText(TextElement text) {
+    public TextElement getText(TextElement text) throws ServiceException {
         TextElementUtil textElementUtil = new TextElementUtil();
         List<Word> allWords =  textElementUtil.getAllWords(text);
         for(Word word : allWords){

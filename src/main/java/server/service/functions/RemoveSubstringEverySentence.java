@@ -4,13 +4,14 @@ import entity.TextElement;
 import entity.impl.Sentence;
 import server.parser.ParserProvider;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.List;
 
 
 
 public class RemoveSubstringEverySentence {
-    public TextElement getText(TextElement text, char startChar, char endChar) {
+    public TextElement getText(TextElement text, char startChar, char endChar) throws ServiceException {
         TextElementUtil textElementUtil = new TextElementUtil();
         List<Sentence>  sentences = textElementUtil.getAllSentences(text);
         for(Sentence sentence: sentences){

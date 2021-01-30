@@ -4,11 +4,13 @@ import entity.TextElement;
 import entity.impl.Sentence;
 import entity.impl.Word;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
+
 import java.util.List;
 
 public class WordInFirstSentenceThatNotExistInOthers {
 
-    public Word getWord(TextElement text){
+    public Word getWord(TextElement text) throws ServiceException {
         Word resultWord = null;
         TextElementUtil textElementUtil = new TextElementUtil();
         List<Sentence> allSentences = textElementUtil.getAllSentences(text);

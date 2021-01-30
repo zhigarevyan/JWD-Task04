@@ -4,6 +4,7 @@ import entity.impl.Word;
 import server.MessageGenerator;
 import server.service.TextService;
 import server.service.TextServiceProvider;
+import server.service.exception.ServiceException;
 
 import java.io.*;
 import java.net.Socket;
@@ -35,17 +36,17 @@ public class ServerController {
             }
 
         } catch (IOException e) {
-            System.err.printf("IOException at Server level", e);
+            System.err.println("IOException at Server level"+ e);
             e.printStackTrace();
         } catch (InterruptedException e) {
-            System.err.printf("InterruptedException at Server level", e);
+            System.err.println("InterruptedException at Server level"+ e);
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.err.printf("Class not found at Server level", e);
-        } finally {
-
+            System.err.println("Class not found at Server level"+ e);
+        } catch (ServiceException e) {
+            System.err.println("ServerException at Server level"+ e);
+            e.printStackTrace();
         }
-
     }
 
     public void sendMessage(String message) throws IOException {
@@ -61,7 +62,7 @@ public class ServerController {
         return requestStream.readUTF();
     }
 
-    public void doTask(Object[] clientRequest) throws IOException {
+    public void doTask(Object[] clientRequest) throws IOException, ServiceException {
         switch ((String) clientRequest[0]) {
             case "1" -> {
                 responseStream.writeObject(textService.getText());

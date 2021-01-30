@@ -4,13 +4,14 @@ import entity.TextElement;
 import entity.impl.Sentence;
 import entity.impl.Word;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.List;
 
 public class ReplaceWordsToSubString {
     private TextElementUtil textElementUtil;
 
-    public TextElement getText(TextElement text,int length, String subString) {
+    public TextElement getText(TextElement text,int length, String subString) throws ServiceException {
         textElementUtil = new TextElementUtil();
         List<Sentence> sentences = textElementUtil.getAllSentences(text);
         for(Sentence sentence: sentences){
@@ -19,7 +20,7 @@ public class ReplaceWordsToSubString {
         return text;
     }
 
-    private void replaceWordToSubString(Sentence sentence,int length, String subString) {
+    private void replaceWordToSubString(Sentence sentence,int length, String subString) throws ServiceException {
         List<Word> words = textElementUtil.getAllWordsFromSentence(sentence);
         for(Word word : words){
             if(word.value().length()==length) {

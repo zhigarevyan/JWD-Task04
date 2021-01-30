@@ -5,12 +5,13 @@ import entity.impl.Sentence;
 import entity.impl.Word;
 import server.parser.RegexProvider;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RemoveWordsStartsWithConsonants {
-    public TextElement getText(TextElement text, int length) {
+    public TextElement getText(TextElement text, int length) throws ServiceException {
         TextElementUtil textElementUtil = new TextElementUtil();
         List<Sentence> sentences = textElementUtil.getAllSentences(text);
         for(Sentence sentence: sentences){

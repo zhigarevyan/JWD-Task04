@@ -4,6 +4,7 @@ import entity.TextElement;
 import entity.impl.Word;
 import server.parser.RegexProvider;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 public class ListOfWordsByVowelPercentage {
 
 
-    public List<Word> getList(TextElement text) {
+    public List<Word> getList(TextElement text) throws ServiceException {
         TextElementUtil textElementUtil = new TextElementUtil();
         List<Word> allWords = textElementUtil.getUniqueWords(text);
         allWords.sort(vowelPercentageComparator);

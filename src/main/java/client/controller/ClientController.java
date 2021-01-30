@@ -41,15 +41,15 @@ public class ClientController {
 
         }
         catch (IOException e) {
-            System.err.printf("IOException at Client level", e);
+            System.err.println("IOException at Client level");
             e.printStackTrace();
         }
         catch (InterruptedException e) {
-            System.err.printf("InterruptedException at Client level", e);
+            System.err.println("InterruptedException at Client level");
             e.printStackTrace();
         }
         catch (ClassNotFoundException e) {
-            System.err.printf("ClassNotFoundException at Client level", e);
+            System.err.println("ClassNotFoundException at Client level");
             e.printStackTrace();
         }
         finally {
@@ -81,13 +81,11 @@ public class ClientController {
                 System.out.println("write param");
                 paramInput = inputReader.readLine();
                 returnArr = new Object[]{input, paramInput};
-                break;
             }
             case "10", "14" -> {
                 System.out.println("write params");
                 paramInput = inputReader.readLine();
                 returnArr = new Object[]{input, paramInput.split(" ")};
-                break;
             }
             case "9" -> {
                 System.out.println("write list of words");

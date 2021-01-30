@@ -4,6 +4,8 @@ import entity.TextElement;
 import entity.impl.Sentence;
 import entity.impl.Word;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
+
 import java.util.List;
 
 public class MaxCountOfSentencesWithRepeatedWord {
@@ -11,7 +13,7 @@ public class MaxCountOfSentencesWithRepeatedWord {
 
 
 
-    public int getCount(TextElement text) {
+    public int getCount(TextElement text) throws ServiceException {
         List<Word> uniqueWords = textElementUtil.getUniqueWords(text);
         int finalCount = 0;
         List<Sentence> sentences = textElementUtil.getAllSentences(text);

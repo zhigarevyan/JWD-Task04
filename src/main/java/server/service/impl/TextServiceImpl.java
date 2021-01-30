@@ -8,6 +8,7 @@ import entity.impl.Word;
 import server.dao.TextDAO;
 import server.dao.TextDAOProvider;
 import server.service.TextService;
+import server.service.exception.ServiceException;
 import server.service.functions.*;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public TextElement getMaxCountOfSentencesWithRepeatedWord() {
+    public TextElement getMaxCountOfSentencesWithRepeatedWord() throws ServiceException {
         Text text = new Text();
         int digit = new MaxCountOfSentencesWithRepeatedWord().getCount(getText());
         text.add(new Digit(String.valueOf(digit)));
@@ -34,64 +35,64 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public TextElement getAllSentencesByQuantityOfWords(){
+    public TextElement getAllSentencesByQuantityOfWords() throws ServiceException {
         List<TextElement> elements = new ArrayList<>(new AllSentencesByQuantityOfWords().getSentences(getText()));
         return getTextElement(elements);
     }
 
     @Override
-    public Word getWordInFirstSentenceThatNotExistInOthers() {
+    public Word getWordInFirstSentenceThatNotExistInOthers() throws ServiceException {
         return new WordInFirstSentenceThatNotExistInOthers().getWord(getText());
     }
 
     @Override
-    public TextElement getUniqueWordsFromQuestions(int length) {
+    public TextElement getUniqueWordsFromQuestions(int length) throws ServiceException {
         List<TextElement> elements = new ArrayList<>(new UniqueWordFromQuestions().getWords(getText(),length));
         return getTextElement(elements);
     }
 
     @Override
-    public TextElement swapFirstAndLastWordEverySentence() {
+    public TextElement swapFirstAndLastWordEverySentence() throws ServiceException {
         return new SwapFirstAndLastWordEverySentence().swap(getText());
     }
 
     @Override
-    public TextElement getListOfWordsByAlphabet() {
+    public TextElement getListOfWordsByAlphabet() throws ServiceException {
         List<TextElement> elements = new ArrayList<>(new ListOfWordsByAlphabet().getList(getText()));
         return getTextElement(elements);
     }
 
     @Override
-    public TextElement getListOfWordsSortedByVowelPercentage() {
+    public TextElement getListOfWordsSortedByVowelPercentage() throws ServiceException {
         List<TextElement> elements = new ArrayList<>(new ListOfWordsByVowelPercentage().getList(getText()));
         return getTextElement(elements);
     }
 
     @Override
-    public TextElement getListOfWordsThatBeginsWithVowel() {
+    public TextElement getListOfWordsThatBeginsWithVowel() throws ServiceException {
         List<TextElement> elements = new ArrayList<>(new ListOfWordsThatBeginsWithVowel().getList(getText()));
         return getTextElement(elements);
     }
 
     @Override
-    public TextElement getListOfWordsSortedByCountOfLetterAsc(char letter) {
+    public TextElement getListOfWordsSortedByCountOfLetterAsc(char letter) throws ServiceException {
         List<TextElement> elements = new ArrayList<>(new ListOfWordsSortedByCountOfLetterAsc().getList(getText(),letter));
         return getTextElement(elements);
     }
 
     @Override
-    public TextElement getListOfWordsSortedByCountOfLetterDesc(char letter) {
+    public TextElement getListOfWordsSortedByCountOfLetterDesc(char letter) throws ServiceException {
         List<TextElement> elements = new ArrayList<>(new ListOfWordsSortedByCountOfLetterDesc().getList(getText(),letter));
         return getTextElement(elements);
     }
 
     @Override
-    public TextElement removeStartLettersFromWords() {
+    public TextElement removeStartLettersFromWords() throws ServiceException {
         return new RemoveStartLettersFromWords().getText(getText());
     }
 
     @Override
-    public TextElement replaceWordsToSubString(int length, String subString) {
+    public TextElement replaceWordsToSubString(int length, String subString) throws ServiceException {
         return new ReplaceWordsToSubString().getText(getText(),length,subString);
     }
 
@@ -102,13 +103,13 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public TextElement removeSubstringEverySentence(char startChar, char endChar) {
+    public TextElement removeSubstringEverySentence(char startChar, char endChar) throws ServiceException {
         return  new RemoveSubstringEverySentence().getText(getText(),startChar,endChar);
 
     }
 
     @Override
-    public TextElement removeWordsStartsWithConsonants(int length) {
+    public TextElement removeWordsStartsWithConsonants(int length) throws ServiceException {
         return new RemoveWordsStartsWithConsonants().getText(getText(),length);
     }
 

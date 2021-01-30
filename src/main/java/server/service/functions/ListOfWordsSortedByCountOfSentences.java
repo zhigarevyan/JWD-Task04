@@ -4,6 +4,7 @@ import entity.TextElement;
 import entity.impl.Sentence;
 import entity.impl.Word;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -17,15 +18,16 @@ public class ListOfWordsSortedByCountOfSentences {
     }
 
     Comparator<Word> countOfOccurrencesComparator = (w1,w2) ->{
-        if(getCountOfOccurrences(w1)>getCountOfOccurrences(w2)){
-            return -1;
-        }else if(getCountOfOccurrences(w2)>getCountOfOccurrences(w1)){
-            return 1;
-        }else return 0;
+        try {
+            return Integer.compare(getCountOfOccurrences(w2), getCountOfOccurrences(w1));
+        } catch (ServiceException serviceException) {
+            System.err.println("Exception in comparator");
+        }
+        return 0;
     };
 
 
-    private int getCountOfOccurrences(Word word){
+    private int getCountOfOccurrences(Word word) throws ServiceException {
         int count = 0;
         TextElementUtil textElementUtil = new TextElementUtil();
 

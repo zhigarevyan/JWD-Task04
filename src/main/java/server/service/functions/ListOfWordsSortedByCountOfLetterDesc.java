@@ -3,6 +3,7 @@ package server.service.functions;
 import entity.TextElement;
 import entity.impl.Word;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,7 +12,7 @@ import java.util.List;
 public class ListOfWordsSortedByCountOfLetterDesc {
     private char letter;
 
-    public List<Word> getList(TextElement text, char letter) {
+    public List<Word> getList(TextElement text, char letter) throws ServiceException {
         this.letter = letter;
         TextElementUtil textElementUtil = new TextElementUtil();
         List<Word> allWords = textElementUtil.getUniqueWords(text);

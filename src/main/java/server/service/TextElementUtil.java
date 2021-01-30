@@ -2,13 +2,16 @@ package server.service;
 
 import entity.TextElement;
 import entity.impl.*;
-import server.service.impl.TextServiceImpl;
+import server.service.exception.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextElementUtil {
-    public List<Word> getAllWords(TextElement text){
+    public List<Word> getAllWords(TextElement text) throws ServiceException {
+        if(!(text instanceof Text)){
+            throw new ServiceException("Wrong class at TextElementUtil");
+        }
         List<Sentence> sentences = getAllSentences(text);
         List<Word> words = new ArrayList<>();
 
@@ -22,7 +25,10 @@ public class TextElementUtil {
         return words;
     }
 
-    public List<Word> getUniqueWords(TextElement text) {
+    public List<Word> getUniqueWords(TextElement text) throws ServiceException {
+        if(!(text instanceof Text)){
+            throw new ServiceException("Wrong class at TextElementUtil");
+        }
         List<Word> allWords = getAllWords(text);
         List<Word> uniqueWords = new ArrayList<>();
         List<String> stringWords = new ArrayList<>();
@@ -36,9 +42,12 @@ public class TextElementUtil {
         return uniqueWords;
     }
 
-    public List<Word> getAllWordsFromSentence(Sentence sentence){
+    public List<Word> getAllWordsFromSentence(TextElement sentence) throws ServiceException {
+        if(!(sentence instanceof Sentence)){
+            throw new ServiceException("Wrong class at TextElementUtil");
+        }
         List<Word> words = new ArrayList<>();
-        for(TextElement element : sentence.getSentence()){
+        for(TextElement element : ((Sentence)sentence).getSentence()){
             if(element instanceof Word){
                 words.add((Word)element);
             }
@@ -46,7 +55,10 @@ public class TextElementUtil {
         return words;
     }
 
-    public List<Sentence> getAllSentences(TextElement text){
+    public List<Sentence> getAllSentences(TextElement text) throws ServiceException {
+        if(!(text instanceof Text)){
+            throw new ServiceException("Wrong class at TextElementUtil");
+        }
         List<Paragraph> paragraphs = getAllTextParagraphs(text);
         List<Sentence> sentences = new ArrayList<>();
 
@@ -60,7 +72,10 @@ public class TextElementUtil {
         return sentences;
     }
 
-    public List<Paragraph> getAllTextParagraphs(TextElement text){
+    public List<Paragraph> getAllTextParagraphs(TextElement text) throws ServiceException {
+        if(!(text instanceof Text)){
+            throw new ServiceException("Wrong class at TextElementUtil");
+        }
         List<Paragraph> paragraphs = new ArrayList<>();
         for(TextElement textPart :((Text)text).getTextElements()){
             if(textPart instanceof Text) {
@@ -74,8 +89,11 @@ public class TextElementUtil {
         return paragraphs;
     }
 
-    public boolean isWordInSentence(Sentence sentence, Word wordToCheck){
-        for(TextElement word : getAllWordsFromSentence(sentence)){
+    public boolean isWordInSentence(TextElement sentence, TextElement wordToCheck) throws ServiceException {
+        if(!(sentence instanceof Sentence || !(wordToCheck instanceof Word))){
+            throw new ServiceException("Wrong class at TextElementUtil");
+        }
+        for(TextElement word : getAllWordsFromSentence((sentence))){
             if(word.value().toLowerCase().equals(wordToCheck.value().toLowerCase())){
                 return true;
             }
@@ -83,7 +101,10 @@ public class TextElementUtil {
         return false;
     }
 
-    public List<Sentence> getAllQuestionSentences(TextElement text){
+    public List<Sentence> getAllQuestionSentences(TextElement text) throws ServiceException {
+        if(!(text instanceof Text)){
+            throw new ServiceException("Wrong class at TextElementUtil");
+        }
         List<Sentence> allSentences = getAllSentences(text);
         List<Sentence> questionSentences = new ArrayList<>();
         for(Sentence sentence : allSentences){

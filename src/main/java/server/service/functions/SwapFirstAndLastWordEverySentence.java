@@ -4,12 +4,13 @@ import entity.TextElement;
 import entity.impl.Sentence;
 import entity.impl.Word;
 import server.service.TextElementUtil;
+import server.service.exception.ServiceException;
 
 import java.util.List;
 
 public class SwapFirstAndLastWordEverySentence {
 
-    public TextElement swap(TextElement text){
+    public TextElement swap(TextElement text) throws ServiceException {
         TextElementUtil textElementUtil = new TextElementUtil();
 
         for(Sentence sentence: textElementUtil.getAllSentences(text)){

@@ -1,2 +1,4 @@
 # Project exclude paths
 /target/
+/.idea/
+/JWD-Task04.iml/
